@@ -6,6 +6,11 @@ public class Customer {
     private String size;
     private Clothing[] items;
 
+    public Customer() {}
+    public Customer(String name, int measurement) {
+        this.name = name;
+        this.setSize(measurement);
+    }
     public void setSize(String newSize) {
         this.size = newSize;
     }
@@ -21,7 +26,7 @@ public class Customer {
                 this.name = "L";
                 break;
             default:
-                this.size = "X";
+                this.size = "XL";
                 break;
         }
     }
@@ -46,5 +51,24 @@ public class Customer {
             totalCost += item.getPrice();
         }
         return totalCost;
+    }
+    public int calcAvaragePrice() {
+        int avaragePrice = 0;
+        int count = 0;
+        for (Clothing item: this.getItems()) {
+            avaragePrice += item.getPrice();
+            if (item.getSize().equals("L")) {
+                count++;
+            }
+        }
+        try {
+           avaragePrice = (count == 0) ? 0: avaragePrice / count;
+            // avaragePrice = avaragePrice / count;
+           return avaragePrice;
+        } catch (ArithmeticException e) {
+            e.printStackTrace();
+            System.out.println("Division on Zero is not allowed");
+        }
+        return avaragePrice;
     }
 }

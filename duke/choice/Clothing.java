@@ -1,13 +1,24 @@
 package duke.choice;
 
-public class Clothing {
+public class Clothing implements Comparable<Clothing> {
     
     private double price;
     private String size = "M";
-    final double MIN_PRICE = 10.0;
-    final double TAX = 0.2;
     private String description;
+    
+    public final static double MIN_PRICE = 10.0;
+    public final static double TAX = 0.2;
 
+    public Clothing() {}
+    public Clothing(String description, double price) {
+        this.description = description;
+        this.setPrice(price);
+    }
+    public Clothing(String description, double price, String size) {
+        this.description = description;
+        this.setPrice(price);
+        this.size = size;
+    }
     public void setPrice(double newPrice) {
         this.price = (newPrice > MIN_PRICE) ? newPrice : MIN_PRICE;
     }
@@ -28,5 +39,13 @@ public class Clothing {
     }
     public String getDescription() {
         return description;
+    }
+    @Override
+    public String toString() {
+        return (getDescription() + ", " + getPrice() + ", " + getSize());
+    }
+    @Override
+    public int compareTo(Clothing other) {
+        return this.description.compareTo(other.description);
     }
 }
